@@ -5,13 +5,15 @@ import java.time.temporal.ChronoUnit;
 
 public abstract class Product implements Cloneable{
 	
-    protected String id;
-    protected double quality;
-    protected LocalDate expiryDate;
-    protected final double defaultPrice;
+	private String id;
+    private String name;
+    private double quality;
+    private LocalDate expiryDate;
+    private final double defaultPrice;
 
-    public Product(String id, double quality, LocalDate expiryDate, double defaultPrice) {
+    public Product(String id, String name, double quality, LocalDate expiryDate, double defaultPrice) {
         this.id = id;
+        this.name = name;
         this.quality = quality;
         this.expiryDate = expiryDate;
         this.defaultPrice = defaultPrice;
@@ -19,6 +21,10 @@ public abstract class Product implements Cloneable{
 
     public String getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public double getQuality() {
@@ -31,6 +37,18 @@ public abstract class Product implements Cloneable{
 
     public double getDefaultPrice() {
         return defaultPrice;
+    }
+    
+    public void setName(String name) {
+    	this.name = name;
+    }
+    
+    public void setQuality(double quality) {
+    	this.quality = quality;
+    }
+    
+    public void setExpiryDate(LocalDate expiryDate) {
+    	this.expiryDate = expiryDate;
     }
     
     public long getDifferenceToExpiryDate() {
@@ -76,11 +94,13 @@ public abstract class Product implements Cloneable{
 		StringBuilder sb = new StringBuilder();
 		sb.append("Product ID: " + this.getId());
 		sb.append(System.getProperty("line.separator"));
+		sb.append("Product Name: " + this.getName());
+		sb.append(System.getProperty("line.separator"));
 		sb.append("Current Quality: " + this.getQuality());
 		sb.append(System.getProperty("line.separator"));
 		sb.append("Expiry Date: " + this.getExpiryDate());
 		sb.append(System.getProperty("line.separator"));
-		sb.append("Daily Price:" + this.calculateDailyPrice() + "€");
+		sb.append("Daily Price: " + this.calculateDailyPrice() + "€");
 		sb.append(System.getProperty("line.separator"));
 		return sb.toString();
 	}

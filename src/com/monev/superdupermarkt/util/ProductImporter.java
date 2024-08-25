@@ -16,7 +16,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class ProductImporter {
 
@@ -33,12 +32,13 @@ public class ProductImporter {
                 String[] values = line.split(CSV_SPLIT_BY);
                 String type = values[0];
                 String id = values[1];
-                int quality = Integer.parseInt(values[2]);
-                LocalDate expiryDate = getDate(values[3]);
-                double defaultPrice = Double.parseDouble(values[4]);
+                String name = values[2];
+                int quality = Integer.parseInt(values[3]);
+                LocalDate expiryDate = getDate(values[4]);
+                double defaultPrice = Double.parseDouble(values[5]);
 
                 try {
-                    products.add(createProduct(type, id, quality, expiryDate, defaultPrice));
+                    products.add(createProduct(type, id, name, quality, expiryDate, defaultPrice));
                 } catch (Exception e) {
                     System.err.println("Failed to create product of type " + type + ": " + e.getMessage());
                 }
@@ -60,12 +60,13 @@ public class ProductImporter {
             while (rs.next()) {
                 String type = rs.getString("type");
                 String id = rs.getString("id");
+                String name = rs.getString("name");
                 int quality = rs.getInt("quality");
                 LocalDate expiryDate = rs.getDate("expiry_date").toLocalDate();
                 double defaultPrice = rs.getDouble("base_price");
 
                 try {
-                    products.add(createProduct(type, id, quality, expiryDate, defaultPrice));
+                    products.add(createProduct(type, id, name, quality, expiryDate, defaultPrice));
                 } catch (Exception e) {
                     System.err.println("Failed to create product of type " + type + ": " + e.getMessage());
                 }
@@ -77,19 +78,19 @@ public class ProductImporter {
         return products;
     }
 
-    private static Product createProduct(String type, String id, int quality, LocalDate expiryDate, double defaultPrice) {
+    private static Product createProduct(String type, String id, String name, int quality, LocalDate expiryDate, double defaultPrice) {
         switch (type) {
             case "Cheese":
-                return new Cheese(id, quality, expiryDate, defaultPrice);
+                return new Cheese(id, name, quality, expiryDate, defaultPrice);
             case "Wine":
-                return new Wine(id, quality, expiryDate, defaultPrice);
+                return new Wine(id, name, quality, expiryDate, defaultPrice);
             default:
-                return new CommonProduct(id, quality, expiryDate, defaultPrice);
+                return new CommonProduct(id, name, quality, expiryDate, defaultPrice);
         }
     }
 
     private static LocalDate getDate(String s) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy").withLocale(Locale.GERMAN);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(s, formatter);
     }
 }

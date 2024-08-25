@@ -1,0 +1,12 @@
+Type,ID,Name,Quality,Expiry Date,Default Price,Meat Type,Vacuum Packed
+Cheese,CH001,Cheddar,35,23-09-2024,5.50,,,
+Cheese,CH002,Brie,40,25-09-2024,6.00,,,
+Wine,WN001,Red Wine,45,30-12-2024,12.00,,,
+Wine,WN002,White Wine,48,01-11-2024,15.00,,,
+Meat,MT001,Chicken Breast,55,null,8.00,Poultry,false
+Meat,MT002,Beef Steak,60,null,15.00,Beef,false
+Meat,MT003,Pork Loin,58,27-08-2024,10.00,Pork,true
+Meat,MT004,Lamb Chops,62,28-08-2024,20.00,Lamb,false
+Bread,CP001,Wholegrain,20,23-08-2024,2.50,,,
+Milk,CP002,Milk,30,24-08-2024,1.50,,,
+Butter,CP003,Butter,25,28-08-2024,3.00,,,

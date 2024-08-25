@@ -90,6 +90,9 @@ public class Application {
 
         System.out.println("Enter Product ID:");
         String id = scanner.nextLine();
+        
+        System.out.println("Enter Product Name:");
+        String name = scanner.nextLine();
 
         System.out.println("Enter Product Quality (0-100):");
         int quality = validateIntegerInput(scanner.nextLine(), 0, 100);
@@ -120,13 +123,13 @@ public class Application {
         try {
             switch (typeChoice) {
                 case 1:
-                    product = new Cheese(id, quality, expiryDate, basePrice);
+                    product = new Cheese(id, name, quality, expiryDate, basePrice);
                     break;
                 case 2:
-                    product = new Wine(id, quality, expiryDate, basePrice);
+                    product = new Wine(id, name, quality, expiryDate, basePrice);
                     break;
                 case 3:
-                    product = new CommonProduct(id, quality, expiryDate, basePrice);
+                    product = new CommonProduct(id, name, quality, expiryDate, basePrice);
                     break;
                 default:
                     System.err.println("Invalid type selected. Returning to main menu.");
