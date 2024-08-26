@@ -15,21 +15,23 @@ import org.junit.jupiter.api.Test;
 import com.monev.superdupermarkt.Product;
 
 class ProductImporterSQLTest {
-	
-    private Connection connection;
-    private LocalDate cheeseExpiryDate;	
-    private LocalDate wineExpiryDate;
-	private LocalDate commonProductExpiryDate;
 
-	@BeforeEach
-	void setUp() throws Exception {
+    private Connection connection;
+    private LocalDate cheeseExpiryDate;
+    private LocalDate wineExpiryDate;
+    private LocalDate commonProductExpiryDate;
+
+    @BeforeEach
+    void setUp() throws Exception {
         // Set up the in-memory database connection
         connection = DriverManager.getConnection("jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1");
-        
+
+        // Define expiry dates for the test products
         cheeseExpiryDate = TestUtil.getDateInRangeFromToday(50, 100);
         wineExpiryDate = TestUtil.getDateInRangeFromToday(1, 100);
         commonProductExpiryDate = TestUtil.getDateInRangeFromToday(1, 100);
-        
+
+        // Format dates to the correct string format
         String formattedCheeseExpiryDate = TestUtil.getDateToString(cheeseExpiryDate);
         String formattedWineExpiryDate = TestUtil.getDateToString(wineExpiryDate);
         String formattedCommonProductExpiryDate = TestUtil.getDateToString(commonProductExpiryDate);
@@ -46,25 +48,24 @@ class ProductImporterSQLTest {
             stmt.execute(createTableSQL);
 
             String insertDataSQL = "INSERT INTO products (type, id, name, quality, expiry_date, base_price) VALUES " +
-                    "('Cheese', 'C001', 'SuperDuperCheese', 40, '"+formattedCheeseExpiryDate+"', 5.0), " +
-                    "('Wine', 'W001', 'SuperDuperWine', 10, '"+formattedWineExpiryDate+"', 15.0), " +
-                    "('CommonProduct', 'P001', 'SuperDuperBread', 30, '"+formattedCommonProductExpiryDate+"', 10.0)";
+                    "('Cheese', 'C001', 'SuperDuperCheese', 40, '" + formattedCheeseExpiryDate + "', 5.0), " +
+                    "('Wine', 'W001', 'SuperDuperWine', 10, '" + formattedWineExpiryDate + "', 15.0), " +
+                    "('CommonProduct', 'P001', 'SuperDuperBread', 30, '" + formattedCommonProductExpiryDate + "', 10.0)";
             stmt.execute(insertDataSQL);
         }
-	}
+    }
 
-	@AfterEach
-	void tearDown() throws Exception {
+    @AfterEach
+    void tearDown() throws Exception {
         if (connection != null) {
             connection.close();
         }
-	}
+    }
 
-	@Test
-	void test() {
+    @Test
+    void testImportFromSQL() {
+        // Import products from the SQL database
         List<Product> products = ProductImporter.importFromSQL(connection, "products");
-        
-        
 
         // Check if the right number of products are imported
         assertEquals(3, products.size());
@@ -90,6 +91,5 @@ class ProductImporterSQLTest {
         assertEquals(30, commonProduct.getQuality());
         assertEquals(commonProductExpiryDate, commonProduct.getExpiryDate());
         assertEquals(10.0, commonProduct.getDefaultPrice(), 0.01);
-	}
-
+    }
 }

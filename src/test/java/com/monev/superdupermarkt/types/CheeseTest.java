@@ -42,7 +42,7 @@ public class CheeseTest {
 		sb.append(System.getProperty("line.separator"));
 		sb.append("Expiry Date: " + cheese.getExpiryDate());
 		sb.append(System.getProperty("line.separator"));
-		sb.append("Daily Price:" + cheese.calculateDailyPrice() + "€");
+		sb.append("Daily Price: " + cheese.calculateDailyPrice() + "€");
 		sb.append(System.getProperty("line.separator"));
     	sb.append("Should be removed from shells: ");
     	sb.append((cheese.getQuality() <= 30) ? "Yes" : "No");

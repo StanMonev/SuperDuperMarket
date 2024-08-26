@@ -8,15 +8,22 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utility class to find and list all class names within a specified Java package.
+ * This is useful for dynamically loading classes or for general introspection purposes.
+ */
 public class PackageClassNameFinder {
 
-	/**
-	 * 
-	 * @param packageName - The given package name, which should contain the class names to be returned
-	 * @return  List of class names found in the given Java package. 
-	 * @throws ClassNotFoundException
-	 * @throws UnsupportedEncodingException
-	 */
+    /**
+     * Retrieves a list of class names from a specified package.
+     * The method looks up the package in the classpath, decodes the path to handle special characters,
+     * and returns all class names found in that package.
+     *
+     * @param packageName The package name to search for classes.
+     * @return A list of class names found in the specified package.
+     * @throws ClassNotFoundException If the package path is not found.
+     * @throws UnsupportedEncodingException If the package path cannot be decoded.
+     */
     public static List<String> getClassNamesInPackage(String packageName) throws ClassNotFoundException, UnsupportedEncodingException {
         List<String> classNames = new ArrayList<>();
 
@@ -50,15 +57,17 @@ public class PackageClassNameFinder {
         }
         
         // Ensure "Common Product" is first if present
-        classNames.sort((a, b) -> a.equals("Common Product") ? -1 : 1);
+        classNames.sort((a, b) -> a.contains("Common Product") ? -1 : 1);
         
         return classNames;
     }
 
     /**
-     * 
-     * @param className
-     * @return
+     * Formats the class name by separating camel case words with spaces.
+     * This is useful for displaying class names in a more readable format.
+     *
+     * @param className The fully qualified class name.
+     * @return The formatted class name.
      */
     private static String formatClassName(String className) {
         String simpleName = className.substring(className.lastIndexOf('.') + 1);

@@ -1,6 +1,6 @@
 package com.monev.superdupermarkt.util;
 
-public enum MeatType {
+public enum MeatTypeEnum {
     POULTRY(2, 10),
     BEEF(5, 10),
     PORK(5, 10),
@@ -11,7 +11,7 @@ public enum MeatType {
     private final int freshDays;
     private final int vacuumedDays;
 
-    MeatType(int freshDays, int vacuumedDays) {
+    MeatTypeEnum(int freshDays, int vacuumedDays) {
         this.freshDays = freshDays;
         this.vacuumedDays = vacuumedDays;
     }
