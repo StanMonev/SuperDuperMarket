@@ -36,6 +36,9 @@ public class Application {
             System.out.println("4. Import products from CSV.");
             System.out.println("5. Import products from SQL.");
             System.out.println("6. Exit");
+			System.out.println();
+			System.out.println("--------------------------------------------------------------------------");
+			System.out.println();
 
             String input = scanner.nextLine();
             int choice = validateIntegerInput(input, 1, 6);
@@ -63,6 +66,16 @@ public class Application {
                 default:
                 	System.err.println("Invalid option. Please try again.");
             }
+            
+            // Sleep for a second so that all outputs are printed out before the next menu prompt.
+            try {
+				Thread.sleep(1000);
+				System.out.println();
+				System.out.println("-----------------------------------Menu---------------------------------------");
+				System.out.println();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
         }
     }
     
@@ -121,6 +134,10 @@ public class Application {
         System.out.println("Enter Product ID:");
         String id = scanner.nextLine();
         
+        if(containsID(products, id)) {
+        	throw new IllegalArgumentException("Product with the same ID has already been added. Returning to main menu.");
+        }
+        
         System.out.println("Enter Product Name:");
         String name = scanner.nextLine();
 
@@ -131,7 +148,7 @@ public class Application {
         	throw new IllegalArgumentException("Invalid quality value. Must be between 0 and 50. Returning to main menu.");
         }
 
-        System.out.println("Enter Product Expiry Date ('dd-mm-yyyy' or 'none' if there is no expiration date or is unknown):");
+        System.out.println("Enter Product Expiry Date ('dd-mm-yyyy' or 'none' if there is no expiration date or is unknown, Cheese CANNOT be none!):");
         LocalDate expiryDate = validateDateInput(scanner.nextLine());
 
         System.out.println("Enter Base Price (e.g., 1.00):");
@@ -335,5 +352,15 @@ public class Application {
             // Ignore and return -1 to indicate invalid input
         }
         return -1;
+    }
+    
+    /**
+     * Checks if product with the same ID already exists in the list.
+     * @param list The list that contains the items
+     * @param id The id of the item to be checked
+     * @return True if the item is already in the list, otherwise False
+     */
+    private static boolean containsID(final List<Product> list, final String id){
+        return list.stream().filter(o -> o.getId().equals(id)).findFirst().isPresent();
     }
 }

@@ -39,7 +39,7 @@ public class Wine extends Product {
      */
     @Override
     public void updateQuality() {        
-        if(isExpired()) {
+        if(getDifferenceToExpiryDate() < 0) {
         	if(getQuality() < 50 && (Math.abs(getDifferenceToExpiryDate()) % 10 == 0)) {
         		setQuality(getQuality() + 1);
         	}

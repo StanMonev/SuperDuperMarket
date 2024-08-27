@@ -41,7 +41,7 @@ public class Meat extends Product {
         if(!isVacuumPacked && expiryDate == null) {
         	setExpiryDate(calculateExpiryDate());
         }else if(!isVacuumPacked && expiryDate != null){
-            if(getDifferenceToExpiryDate() < 1 || getDifferenceToExpiryDate() > 4) {
+            if(getDifferenceToExpiryDate() <= 2 || getDifferenceToExpiryDate() >= 5) {
                 throw new IllegalArgumentException("Meat expiry date must be between 1 and 4 days for fresh meat.");
             }
         }
@@ -51,7 +51,7 @@ public class Meat extends Product {
             throw new IllegalArgumentException("Meat quality must be at least 50 to be put on stands.");
         }
         
-        if(isVacuumPacked && getDifferenceToExpiryDate() < 4 || getDifferenceToExpiryDate() > 10) {
+        if(isVacuumPacked && getDifferenceToExpiryDate() <= 5 || getDifferenceToExpiryDate() >= 10) {
             throw new IllegalArgumentException("Meat expiry date must be between 5 and 10 days for vacuum packed meat.");
         }
 	}
