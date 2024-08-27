@@ -54,7 +54,7 @@ Once the application starts, you will see the following prompt:
 - After adding items, you can simulate quality changes over a number of days by choosing the appropriate option from the menu.
 - The application will show how the quality of each item changes over time based on the rules defined for each product type.
 ### Importing products from CSV
-- Products can be imported from a CSV file, from a path provided by the user and the file must include these properties: type, id, name, quality, expiry_date, base_price, meat_type, is_vacuum_packed(for Meat)
+- Products can be imported from a CSV file, from a path provided by the user and the file must include these properties: type, id, name, quality, expiry_date, base_price, meat_type, is_vacuum_packed(for Meat). The path should include the CSV file itself, for example the path to the example CSV in src/main/resources would be: `your-path-to-project\SuperDuperMarket\src\main\resources\csv\products.csv`
 ### Importing products from SQL
 - Products can be imported from a SQL connection, details of which are provided by the user and the table must include these properties: type, id, name, quality, expiry_date, base_price, meat_type, is_vacuum_packed(for Meat)
 ### Exiting the Application
@@ -64,7 +64,7 @@ Once the application starts, you will see the following prompt:
 - **Cheese**: Cheese loses quality by 1 each day and can only be sold if its quality is 30 or higher. It gains daily price change.
 - **Wine**: Wine does not lose quality and gains +1 quality every 10 days after its expiry date until a quality of 50 is reached. Wines do not change prices once on the stands.
 - **Meat**: There are different types of meat that can be stored either freshly cut or in a vacuumed packaging. Depending on the storage they can have different expiration dates and most of the time the freshly cut meat does not have an expiration date and will be set dynamially. The expiration date of freshly cut meat is between 2 and 5 days and 5 to 10 days for vacuum packed meat. Meat also loses quality depending on the meat types lasting days, whether it's vacuum packaged or freshly cut. After the expiration date it loses twice as much quality. The quality of the meat must be at least 50. If it drops below 50 it must be removed from the shells.
-- **Common Product**: A general product type with customizable attributes.
+- **Common Product**: A general product type that acts as a default extension of the abstract class Product.
 
 ## Testing
 This is a Mavin project and it has Java Unit Tests. The project details are described in the `pom.xml` file. 
