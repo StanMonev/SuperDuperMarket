@@ -71,4 +71,4 @@ This is a Mavin project and it has Java Unit Tests. The project details are desc
 ### Available Tests
 Tests are available for the following classes: **Product**, **Cheese**, **Meat**, **Wine**, **ProductImporter**, **PackageClassNameFinderTest** 
 ### Running the tests
-To run the tests simply open the project in your IDE of choice (preferably Eclipse), right-click on the project and run as a JUnit Test. You can also use Maven to run all tests with `mvn clean test`
+To run the tests simply open the project in your IDE of choice (preferably Eclipse), right-click on the project and run as a JUnit Test. You can also use Maven to run all tests with `mvn clean test`.
